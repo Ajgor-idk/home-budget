@@ -1,0 +1,131 @@
+body {
+  background-color: grey;
+}
+
+header {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+
+header > h1 {
+  width: wrap;
+  border: 1px black solid;
+  padding: 10px;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.income-table,
+.expense-table {
+  border: 1px solid black;
+}
+
+.border {
+  padding: 15px 5px;
+  background-clip: content-box;
+  border-bottom: 2px solid black;
+}
+
+.income-border {
+  border-image: linear-gradient(to left, #000 95%, rgba(0, 0, 0, 0) 10%);
+  border-image-slice: 1;
+}
+
+.expense-border {
+  border-image: linear-gradient(to right, #000 95%, rgba(0, 0, 0, 0) 10%);
+  border-image-slice: 1;
+}
+
+.table-heading {
+  margin: 10px 0 20px 10px;
+}
+
+#nameOfIncome,
+#nameOfExpense {
+  height: 20px;
+}
+
+#amountOfIncome,
+#amountOfExpense {
+  width: 80px;
+  height: 20px;
+}
+
+#addIncome,
+#addExpense {
+  height: 26px;
+  margin-left: 8px;
+}
+
+.table-bottom-half {
+  display: flex;
+  flex-direction: column;
+}
+
+#expenseSum,
+#incomeSum {
+  margin-left: 5px;
+}
+
+.delete-btn {
+  margin-left: 5px;
+}
+
+.edit-btn {
+  margin-left: 105px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  background-color: #6b6161;
+  margin: 25% auto;
+  padding: 20px;
+  border: 2px solid #000000;
+  width: 40%;
+}
+
+.modal-content > h3 {
+  margin: 0;
+}
+
+.inputs-arrangment,
+.buttons-arrangment {
+  display: flex;
+  width: 100%;
+}
+
+.inputs-arrangment {
+  justify-content: center;
+  gap: 50px;
+}
+
+.inputs-arrangment > input {
+  width: 40%;
+}
+
+.buttons-arrangment {
+  justify-content: right;
+  gap: 20px;
+}
+
+.cancelBtn {
+  margin-right: 22px;
+}
