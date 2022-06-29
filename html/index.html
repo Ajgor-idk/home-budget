@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/reset.css" />
     <link rel="stylesheet" href="/css/style.css" />
-    <script src="/js/main.js" type="module" defer></script>
+    <script src="../js/utils.js" defer></script>
+    <script src="../js/main.js" type="module" defer></script>
     <title>Home budget</title>
   </head>
   <body>
@@ -17,35 +18,47 @@
       <div class="income-table">
         <h2 class="table-heading">Income</h2>
         <label class="income-border border">
-          <input type="text" id="nameOfIncome" placeholder="Income name" />
           <input
+            class="nameOfIncome"
+            type="text"
+            id="nameOfIncome"
+            placeholder="Income name"
+          />
+          <input
+            class="amountOfIncome"
             type="number"
             id="amountOfIncome"
             min="0"
             placeholder="Amount"
           />
-          <button id="addIncome">Add</button>
+          <button class="addIncome" id="addIncome">Add</button>
         </label>
         <div class="table-bottom-half">
           <ul id="incomeList"></ul>
-          <p id="incomeSum">Sum up of the income: 0 zł</p>
+          <p class="incomeSum" id="incomeSum">Sum up of the income: 0 zł</p>
         </div>
       </div>
       <div class="expense-table">
         <h2 class="table-heading">Expenses</h2>
         <label class="expense-border border">
-          <input type="text" id="nameOfExpense" placeholder="Expense name" />
           <input
+            class="nameOfExpense"
+            type="text"
+            id="nameOfExpense"
+            placeholder="Expense name"
+          />
+          <input
+            class="amountOfExpense"
             type="number"
             id="amountOfExpense"
             min="0"
             placeholder="Cost"
           />
-          <button id="addExpense">Add</button>
+          <button class="addExpense" id="addExpense">Add</button>
         </label>
         <div class="table-bottom-half">
           <ul id="expensesList"></ul>
-          <p id="expenseSum">Sum up of the expenses: 0 zł</p>
+          <p class="expenseSum" id="expenseSum">Sum up of the expenses: 0 zł</p>
         </div>
       </div>
     </main>

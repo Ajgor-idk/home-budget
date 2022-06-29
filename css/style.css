@@ -45,19 +45,19 @@ main {
   margin: 10px 0 20px 10px;
 }
 
-#nameOfIncome,
-#nameOfExpense {
+.nameOfIncome,
+.nameOfExpense {
   height: 20px;
 }
 
-#amountOfIncome,
-#amountOfExpense {
+.amountOfIncome,
+.amountOfExpense {
   width: 80px;
   height: 20px;
 }
 
-#addIncome,
-#addExpense {
+.addIncome,
+.addExpense {
   height: 26px;
   margin-left: 8px;
 }
@@ -67,17 +67,23 @@ main {
   flex-direction: column;
 }
 
-#expenseSum,
-#incomeSum {
+.expenseSum,
+.incomeSum {
   margin-left: 5px;
 }
 
-.delete-btn {
-  margin-left: 5px;
+.liArrangament {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
 }
 
 .edit-btn {
-  margin-left: 105px;
+  margin: 0 2px;
+}
+
+.delete-btn {
+  margin-right: 5px;
 }
 
 .modal {
@@ -106,22 +112,22 @@ main {
   margin: 0;
 }
 
-.inputs-arrangment,
-.buttons-arrangment {
+.inputs-arrangement,
+.buttons-arrangement {
   display: flex;
   width: 100%;
 }
 
-.inputs-arrangment {
+.inputs-arrangement {
   justify-content: center;
   gap: 50px;
 }
 
-.inputs-arrangment > input {
+.inputs-arrangement > input {
   width: 40%;
 }
 
-.buttons-arrangment {
+.buttons-arrangement {
   justify-content: right;
   gap: 20px;
 }

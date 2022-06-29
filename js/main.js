@@ -1,8 +1,6 @@
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
-const querySelect = (selector) => document.querySelector(selector);
-const createElem = (element) => document.createElement(element);
-
+//All the necessary DOM objects.
 const incomeList = querySelect("#incomeList");
 const addIncomeBtn = querySelect("#addIncome");
 const incomeNameInput = querySelect("#nameOfIncome");
@@ -15,6 +13,7 @@ const incomeSum = querySelect("#incomeSum");
 const expenseSum = querySelect("#expenseSum");
 let freeFunds = querySelect("#freeFunds");
 
+//Two main arrays for storing info about products.
 let incomeProducts = [];
 let expenseProducts = [];
 
@@ -27,22 +26,28 @@ const renderApp = () => {
 };
 
 const renderIncomeList = () => {
+  //Creating primary income list elements.
   incomeList.innerHTML = "";
   incomeProducts.map(({ name, amount, id, arrType }) => {
     const li = createElem("li");
+    const liArrangament = createElem("div");
+    const buttonWrapper = createElem("div");
     const editBtn = createElem("button");
     const deleteBtn = createElem("button");
     editBtn.setAttribute("class", "edit-btn");
     deleteBtn.setAttribute("class", "delete-btn");
+    liArrangament.setAttribute("class", "liArrangament");
 
-    //Adds text, products and buttons to the list
+    //Adds text, products and buttons to the list items.
     editBtn.innerText = "Edit";
     deleteBtn.innerText = "Delete";
-    name = name[0].toUpperCase() + name.slice(1);
+    name = name[0]?.toUpperCase() + name.slice(1);
     li.innerHTML = `${name} - ${amount} zł`;
-    li.appendChild(editBtn);
-    li.appendChild(deleteBtn);
-    incomeList.appendChild(li);
+    liArrangament.appendChild(li);
+    liArrangament.appendChild(buttonWrapper);
+    buttonWrapper.appendChild(editBtn);
+    buttonWrapper.appendChild(deleteBtn);
+    incomeList.appendChild(liArrangament);
 
     //Deletes products from income list.
     deleteBtn.addEventListener("click", () => {
@@ -52,38 +57,13 @@ const renderIncomeList = () => {
       renderApp();
     });
 
-    //adds modal which edits the items
+    //Adds modal which edits the items.
     editBtn.addEventListener("click", () => {
-      const modal = createElem("div");
-      const modalContent = createElem("div");
-      const modalNameInput = createElem("input");
-      const modalQuantityInput = createElem("input");
-      const saveBtn = createElem("button");
-      const cancelBtn = createElem("button");
-      const inputsArrangment = createElem("div");
-      const buttonsArrangment = createElem("div");
-      const modalHeading = createElem("h3");
-      saveBtn.innerText = "Save";
-      cancelBtn.innerText = "Cancel";
-      modalHeading.innerText = "Provide changes";
-      modal.setAttribute("class", "modal");
-      modalContent.setAttribute("class", "modal-content");
-      saveBtn.setAttribute("class", "saveBtn");
-      cancelBtn.setAttribute("class", "cancelBtn");
-      modalNameInput.setAttribute("placeholder", "Provide a new name");
-      modalQuantityInput.setAttribute("placeholder", "Provaide a new amount");
-      modalQuantityInput.setAttribute("type", "number");
-      inputsArrangment.setAttribute("class", "inputs-arrangment");
-      buttonsArrangment.setAttribute("class", "buttons-arrangment");
-      modal.appendChild(modalContent);
-      modalContent.appendChild(modalHeading);
-      modalContent.appendChild(inputsArrangment);
-      modalContent.appendChild(buttonsArrangment);
-      inputsArrangment.appendChild(modalNameInput);
-      inputsArrangment.appendChild(modalQuantityInput);
-      buttonsArrangment.appendChild(saveBtn);
-      buttonsArrangment.appendChild(cancelBtn);
-      document.body.append(modal);
+      createModal();
+      const saveBtn = querySelect(".saveBtn");
+      const cancelBtn = querySelect(".cancelBtn");
+      const modalQuantityInput = querySelect(".modal-amount");
+      const modalNameInput = querySelect(".modal-name");
       saveBtn.addEventListener("click", (event) =>
         editItem(
           arrType,
@@ -117,29 +97,7 @@ const editItem = (arrType, chosenId, newAmount, newName, event) => {
   renderApp();
 };
 
-const closeModal = () => {
-  const modal = querySelect(".modal");
-  modal.remove();
-};
-
-const sumUp = (arrName, destination) => {
-  let sum = 0;
-  let allAmounts = [sum];
-  arrName.forEach(({ amount }) => {
-    allAmounts = [...allAmounts, amount];
-  });
-  sum = allAmounts.reduce(
-    (prevAmount, currAmount) => Number(prevAmount) + Number(currAmount)
-  );
-  if (destination === incomeSum) {
-    destination.innerText = "";
-    destination.innerText = `Sum up of the income: ${sum} zł`;
-  } else {
-    destination.innerText = "";
-    destination.innerText = `Sum up of the expenses: ${sum} zł`;
-  }
-};
-
+//Function that tells the user how much balance does he have left.
 const allFunds = () => {
   let totalIncome = 0;
   let allIncomes = [totalIncome];
@@ -170,24 +128,30 @@ const allFunds = () => {
 };
 
 const renderExpenseList = () => {
+  //Creating primary expense list elements.
   expensesList.innerHTML = "";
   expenseProducts.map(({ name, amount, id, arrType }) => {
     const li = createElem("li");
     const editBtn = createElem("button");
     const deleteBtn = createElem("button");
+    const liArrangament = createElem("div");
+    const buttonWrapper = createElem("div");
     editBtn.setAttribute("class", "edit-btn");
     deleteBtn.setAttribute("class", "delete-btn");
+    liArrangament.setAttribute("class", "liArrangament");
 
+    //Adds text, products and buttons to the list items.
     editBtn.innerText = "Edit";
     deleteBtn.innerText = "Delete";
-
-    name = name[0].toUpperCase() + name.slice(1);
+    name = name[0]?.toUpperCase() + name.slice(1);
     li.innerHTML = `${name} - ${amount} zł`;
+    liArrangament.appendChild(li);
+    liArrangament.appendChild(buttonWrapper);
+    buttonWrapper.appendChild(editBtn);
+    buttonWrapper.appendChild(deleteBtn);
+    expensesList.appendChild(liArrangament);
 
-    li.appendChild(editBtn);
-    li.appendChild(deleteBtn);
-    expensesList.appendChild(li);
-
+    //Deletes products from expense list.
     deleteBtn.addEventListener("click", () => {
       expenseProducts = expenseProducts.filter(
         ({ id: productId }) => productId !== id
@@ -195,37 +159,13 @@ const renderExpenseList = () => {
       renderApp();
     });
 
+    //Adds modal which edits the items.
     editBtn.addEventListener("click", () => {
-      const modal = createElem("div");
-      const modalContent = createElem("div");
-      const modalNameInput = createElem("input");
-      const modalQuantityInput = createElem("input");
-      const saveBtn = createElem("button");
-      const cancelBtn = createElem("button");
-      const inputsArrangment = createElem("div");
-      const buttonsArrangment = createElem("div");
-      const modalHeading = createElem("h3");
-      saveBtn.innerText = "Save";
-      cancelBtn.innerText = "Cancel";
-      modalHeading.innerText = "Provide changes";
-      modal.setAttribute("class", "modal");
-      modalContent.setAttribute("class", "modal-content");
-      saveBtn.setAttribute("class", "saveBtn");
-      cancelBtn.setAttribute("class", "cancelBtn");
-      modalNameInput.setAttribute("placeholder", "Provide a new name");
-      modalQuantityInput.setAttribute("placeholder", "Provaide a new amount");
-      modalQuantityInput.setAttribute("type", "number");
-      inputsArrangment.setAttribute("class", "inputs-arrangment");
-      buttonsArrangment.setAttribute("class", "buttons-arrangment");
-      modal.appendChild(modalContent);
-      modalContent.appendChild(modalHeading);
-      modalContent.appendChild(inputsArrangment);
-      modalContent.appendChild(buttonsArrangment);
-      inputsArrangment.appendChild(modalNameInput);
-      inputsArrangment.appendChild(modalQuantityInput);
-      buttonsArrangment.appendChild(saveBtn);
-      buttonsArrangment.appendChild(cancelBtn);
-      document.body.append(modal);
+      createModal();
+      const saveBtn = querySelect(".saveBtn");
+      const cancelBtn = querySelect(".cancelBtn");
+      const modalQuantityInput = querySelect(".modal-amount");
+      const modalNameInput = querySelect(".modal-name");
       saveBtn.addEventListener("click", (event) =>
         editItem(
           arrType,
@@ -241,6 +181,7 @@ const renderExpenseList = () => {
   });
 };
 
+//Adds products given by user to the primary arrays.
 addIncomeBtn.addEventListener("click", (event) =>
   addItem(event, incomeProducts)
 );
@@ -253,19 +194,21 @@ const addItem = (event, arrName) => {
 
   if (arrName == incomeProducts) {
     const name = incomeNameInput.value;
-    const amount = incomeQuantityInput.value;
+    let amount = incomeQuantityInput.value;
     const id = uuidv4();
     const arrType = "income";
     incomeQuantityInput.value = "";
     incomeNameInput.value = "";
+    if (amount < 0) amount = (amount * -2) / 2;
     incomeProducts = [...incomeProducts, { name, amount, id, arrType }];
   } else if (arrName == expenseProducts) {
     const name = expenseNameInput.value;
-    const amount = expenseQuantityInput.value;
+    let amount = expenseQuantityInput.value;
     const id = uuidv4();
     const arrType = "outcome";
     expenseQuantityInput.value = "";
     expenseNameInput.value = "";
+    if (amount < 0) amount = (amount * -2) / 2;
     expenseProducts = [...expenseProducts, { name, amount, id, arrType }];
   }
   renderApp();
